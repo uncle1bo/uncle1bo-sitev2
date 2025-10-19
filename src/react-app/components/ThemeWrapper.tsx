@@ -1,8 +1,16 @@
 // ThemeWrapper.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ConfigProvider, theme } from 'antd';
 
 type Mode = 'light' | 'system' | 'dark';
+
+/* 1. 创建 Context 用于读取当前模式 */
+const ModeContext = React.createContext<Mode>('system');
+
+/* 2. 导出钩子，供外部组件读取当前主题 */
+export function useTheme() {
+    return useContext(ModeContext);
+}
 
 let globalSetMode: (mode: Mode) => void = () => { };
 
@@ -37,8 +45,10 @@ export default function ThemeWrapper({ children }: { children: React.ReactNode }
     const dark = mode === 'dark' || (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
     return (
-        <ConfigProvider theme={{ algorithm: dark ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
-            {children}
-        </ConfigProvider>
+        <ModeContext.Provider value={mode}>
+            <ConfigProvider theme={{ algorithm: dark ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
+                {children}
+            </ConfigProvider>
+        </ModeContext.Provider>
     );
 }
