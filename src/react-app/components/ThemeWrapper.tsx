@@ -16,14 +16,13 @@ export function changeLightDarkMode(next: Mode) {
 }
 
 export default function ThemeWrapper({ children }: { children: React.ReactNode }) {
-    const [mode, setMode] = useState<Mode>('system');
-    globalSetMode = setMode;
-
-    useEffect(() => {
+    const [mode, setMode] = useState<Mode>(() => {
+        // ✅ 惰性初始化，避免首次渲染为 'system'
         const stored = localStorage.getItem('antd-theme') as Mode | null;
-        const initial = stored || 'system';
-        setMode(initial);
-    }, []);
+        return stored || 'system';
+    });
+
+    globalSetMode = setMode;
 
     useEffect(() => {
         localStorage.setItem('antd-theme', mode);
@@ -33,11 +32,13 @@ export default function ThemeWrapper({ children }: { children: React.ReactNode }
 
     return (
         <ModeContext.Provider value={mode}>
-            <ConfigProvider theme={{
-                token: { colorPrimary: '#1677ff', },
-                algorithm: dark ? theme.darkAlgorithm : theme.defaultAlgorithm,
-                cssVar: true,
-            }}>
+            <ConfigProvider
+                theme={{
+                    token: { colorPrimary: '#1677ff' },
+                    algorithm: dark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+                    cssVar: true,
+                }}
+            >
                 {children}
             </ConfigProvider>
         </ModeContext.Provider>
