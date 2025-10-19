@@ -46,7 +46,11 @@ export default function ThemeWrapper({ children }: { children: React.ReactNode }
 
     return (
         <ModeContext.Provider value={mode}>
-            <ConfigProvider theme={{ algorithm: dark ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
+            <ConfigProvider theme={{
+                token: { colorPrimary: '#1677ff', },
+                algorithm: dark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+                cssVar: true,
+            }}>
                 {children}
             </ConfigProvider>
         </ModeContext.Provider>
