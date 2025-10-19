@@ -1,6 +1,11 @@
 /// <reference types="vite/client" />
 declare module '~react-pages' {
-  import type { RouteObject } from 'react-router-dom'
-  const routes: RouteObject[]
-  export default routes
+  export interface CustomRouteObject extends Omit<RouteObject, 'children'> {
+    path?: string;
+    name?: string;
+    meta?: { title?: string };
+    children?: CustomRouteObject[];
+  }
+  const routes: CustomRouteObject[];
+  export default routes;
 }
