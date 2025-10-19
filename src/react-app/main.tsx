@@ -4,11 +4,14 @@ import "normalize.css"
 import 'antd/dist/reset.css'
 import Router from "./Router";
 import { BrowserRouter } from "react-router-dom";
+import Template from "./components/Template";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <Router />
+      <Template>
+        <Router />
+      </Template>
     </BrowserRouter>
   </StrictMode>,
 );
