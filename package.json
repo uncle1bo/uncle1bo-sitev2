@@ -1,5 +1,6 @@
 {
   "name": "uncle1bo-sitev2",
+  "version": "1.0.0",
   "description": "A template for building a React application with Vite, Hono, and Cloudflare Workers",
   "private": true,
   "cloudflare": {
