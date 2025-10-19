@@ -20,7 +20,7 @@ const themeIconMap = {
 
 export default function Template({ children }: { children: React.ReactNode }) {
     const currentTheme = useTheme();
-    
+
     const themeMenu: MenuProps = {
         items: [
             { key: 'light', icon: <SunOutlined />, label: '亮色', onClick: () => changeLightDarkMode('light') },
@@ -31,45 +31,45 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
     /* 使用 ConfigProvider + token 让颜色完全跟随 Ant Design 主题 */
     return (
-            <Layout style={{ minHeight: '100vh' }}>
-                {/* 顶栏 */}
-                <Header
-                    style={{
-                        padding: '0 16px',
-                        /* 用 token 代替手写色值 */
-                        background: 'var(--ant-color-bg-header)', // 暗/亮自动切换
-                        color: 'var(--ant-color-text)',
-                    }}
-                >
-                    <Space style={{ width: '100%', justifyContent: 'space-between' }}>
-                        <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
-                            <Title
-                                style={{
-                                    color: 'var(--ant-color-primary)',
-                                    margin: 0,
-                                }}
-                            >
-                                Uncle1Bo
-                            </Title>
-                        </Link>
+        <Layout style={{ minHeight: '100vh' }}>
+            {/* 顶栏 */}
+            <Header
+                style={{
+                    padding: '0 1em',
+                    /* 用 token 代替手写色值 */
+                    background: 'var(--ant-color-bg-header)', // 暗/亮自动切换
+                    color: 'var(--ant-color-text)',
+                }}
+            >
+                <Space style={{ width: '100%', justifyContent: 'space-between' }}>
+                    <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
+                        <Title
+                            style={{
+                                color: 'var(--ant-color-primary)',
+                                margin: 0,
+                            }}
+                        >
+                            Uncle1Bo
+                        </Title>
+                    </Link>
 
-                        <Dropdown menu={themeMenu} trigger={['click']}>
-                            <Button
-                                type="text"
-                                icon={themeIconMap[currentTheme]}
-                                style={{ color: 'var(--ant-color-text)' }}
-                            >
-                                <DownOutlined style={{ fontSize: 10, marginLeft: 4 }} />
-                            </Button>
-                        </Dropdown>
-                    </Space>
-                </Header>
+                    <Dropdown menu={themeMenu} trigger={['click']}>
+                        <Button
+                            type="text"
+                            icon={themeIconMap[currentTheme]}
+                            style={{ color: 'var(--ant-color-text)' }}
+                        >
+                            <DownOutlined />
+                        </Button>
+                    </Dropdown>
+                </Space>
+            </Header>
 
-                <Content style={{ padding: 16 }}>{children}</Content>
+            <Content style={{ padding: 16 }}>{children}</Content>
 
-                <Footer style={{ textAlign: 'center', color: 'var(--ant-color-text-secondary)' }}>
-                    ©Uncle1Bo
-                </Footer>
-            </Layout>
+            <Footer style={{ textAlign: 'center', color: 'var(--ant-color-text-secondary)' }}>
+                ©Uncle1Bo
+            </Footer>
+        </Layout>
     );
 }
