@@ -1,69 +1,75 @@
-// src/components/Template.tsx
-import React, { JSX } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import routes from '~react-pages';
-import ThemeWrapper, { changeLightDarkMode } from './ThemeWrapper';
-import Layout, { Content, Footer, Header } from 'antd/es/layout/layout';
-import { Button, Dropdown, MenuProps, Space, Typography } from 'antd';
-import { SunOutlined, MoonOutlined, LaptopOutlined } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
+import { Button, Dropdown, Space, Layout } from 'antd';
+import {
+    SunOutlined,
+    MoonOutlined,
+    LaptopOutlined,
+    DownOutlined,
+} from '@ant-design/icons';
+import { changeLightDarkMode, useTheme } from './ThemeWrapper';
+import { Content, Footer, Header } from 'antd/es/layout/layout';
+import Title from 'antd/es/typography/Title';
 
-const { Text } = Typography;
+const themeIconMap = {
+    light: <SunOutlined />,
+    dark: <MoonOutlined />,
+    system: <LaptopOutlined />,
+};
 
-export default function Template({ children }: { children: React.ReactNode }): JSX.Element {
-    /* 拍平路由 */
-    const navItems = routes.flatMap((r) =>
-        r.path && !r.path.includes(':') && r.path !== '*'
-            ? [{ path: r.path, title: r.meta?.title || r.name || r.path }]
-            : [],
-    );
-
-    /* 主题下拉菜单 */
+export default function Template({ children }: { children: React.ReactNode }) {
+    const currentTheme = useTheme();
+    
     const themeMenu: MenuProps = {
         items: [
-            {
-                key: 'light',
-                icon: <SunOutlined />,
-                label: '亮色',
-                onClick: () => changeLightDarkMode('light'),
-            },
-            {
-                key: 'dark',
-                icon: <MoonOutlined />,
-                label: '暗色',
-                onClick: () => changeLightDarkMode('dark'),
-            },
-            {
-                key: 'system',
-                icon: <LaptopOutlined />,
-                label: '系统',
-                onClick: () => changeLightDarkMode('system'),
-            },
+            { key: 'light', icon: <SunOutlined />, label: '亮色', onClick: () => changeLightDarkMode('light') },
+            { key: 'dark', icon: <MoonOutlined />, label: '暗色', onClick: () => changeLightDarkMode('dark') },
+            { key: 'system', icon: <LaptopOutlined />, label: '系统', onClick: () => changeLightDarkMode('system') },
         ],
     };
 
+    /* 使用 ConfigProvider + token 让颜色完全跟随 Ant Design 主题 */
     return (
-        <ThemeWrapper>
             <Layout style={{ minHeight: '100vh' }}>
-                <Header style={{ padding: '0 16px', color: '#fff' }}>
+                {/* 顶栏 */}
+                <Header
+                    style={{
+                        padding: '0 16px',
+                        /* 用 token 代替手写色值 */
+                        background: 'var(--ant-color-bg-header)', // 暗/亮自动切换
+                        color: 'var(--ant-color-text)',
+                    }}
+                >
                     <Space style={{ width: '100%', justifyContent: 'space-between' }}>
-                        <Text style={{ color: 'var(--antd-wave-shadow-color)', fontSize: 18, fontWeight: 600 }}>
-                            Uncle1Bo
-                        </Text>
-                        <Space>
-                            {navItems.map((nav) => (
-                                <Link key={nav.path} to={nav.path} style={{ color: '#fff' }}>
-                                    {nav.title}
-                                </Link>
-                            ))}
-                        </Space>
+                        <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
+                            <Title
+                                style={{
+                                    color: 'var(--ant-color-primary)',
+                                    margin: 0,
+                                }}
+                            >
+                                Uncle1Bo
+                            </Title>
+                        </Link>
+
                         <Dropdown menu={themeMenu} trigger={['click']}>
-                            <Button type="text" icon={<MoonOutlined />} style={{ color: '#fff' }} />
+                            <Button
+                                type="text"
+                                icon={themeIconMap[currentTheme]}
+                                style={{ color: 'var(--ant-color-text)' }}
+                            >
+                                <DownOutlined style={{ fontSize: 10, marginLeft: 4 }} />
+                            </Button>
                         </Dropdown>
                     </Space>
                 </Header>
+
                 <Content style={{ padding: 16 }}>{children}</Content>
-                <Footer style={{ textAlign: 'center' }}>©Uncle1Bo</Footer>
+
+                <Footer style={{ textAlign: 'center', color: 'var(--ant-color-text-secondary)' }}>
+                    ©Uncle1Bo
+                </Footer>
             </Layout>
-        </ThemeWrapper>
     );
 }

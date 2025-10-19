@@ -5,13 +5,16 @@ import 'antd/dist/reset.css'
 import Router from "./Router";
 import { BrowserRouter } from "react-router-dom";
 import Template from "./components/Template";
+import ThemeWrapper from "./components/ThemeWrapper";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
-      <Template>
-        <Router />
-      </Template>
-    </BrowserRouter>
+    <ThemeWrapper>
+      <BrowserRouter>
+        <Template>
+          <Router />
+        </Template>
+      </BrowserRouter>
+    </ThemeWrapper>
   </StrictMode>,
 );
