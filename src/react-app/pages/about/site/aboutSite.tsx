@@ -1,7 +1,7 @@
-import reactLogo from "../../assets/react.svg";
-import viteLogo from "/vite.svg";
-import cloudflareLogo from "../../assets/Cloudflare_Logo.svg";
-import honoLogo from "../../assets/hono.svg";
+import reactLogo from "../../../assets/react.svg";
+import viteLogo from "../../../../../public/vite.svg";
+import cloudflareLogo from "../../../assets/Cloudflare_Logo.svg";
+import honoLogo from "../../../assets/hono.svg";
 import "./aboutSite.css";
 
 function App() {
