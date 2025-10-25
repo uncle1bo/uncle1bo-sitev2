@@ -36,6 +36,9 @@ export default function Template({ children }: { children: React.ReactNode }) {
             {/* 顶栏 */}
             <Header
                 style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: antdToken.paddingContentHorizontal,
                     background: antdToken.colorPrimaryBg,
                     color: antdToken.colorText,
                 }}
