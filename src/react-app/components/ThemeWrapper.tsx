@@ -36,7 +36,6 @@ export default function ThemeWrapper({ children }: { children: React.ReactNode }
                 theme={{
                     token: { colorPrimary: '#1677ff' },
                     algorithm: dark ? theme.darkAlgorithm : theme.defaultAlgorithm,
-                    cssVar: true,
                 }}
             >
                 {children}
