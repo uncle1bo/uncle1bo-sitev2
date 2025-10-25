@@ -76,7 +76,7 @@ export default function AllTokenShowcase() {
     const renderShadow = (list: Entry[]) =>
         list.map(([k, v]) => (
             <Col key={k} xs={12} sm={8} md={6} lg={4}>
-                <Card size="small" style={{ boxShadow: v }}>  {/* ✅ v 一定是 string */}
+                <Card size="small" style={{ boxShadow: v as string }}>  {/* ✅ v 一定是 string */}
                     <Text style={{ fontSize: 12, color: '#999' }}>{k}</Text>
                     <div style={{ fontFamily: 'monospace', fontSize: 12, marginTop: 8 }}>
                         {v}
