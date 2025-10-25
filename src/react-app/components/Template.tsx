@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import type { MenuProps } from 'antd';
-import { Button, Dropdown, Space, Layout } from 'antd';
+import { Button, Dropdown, Space, Layout, theme } from 'antd';
 import {
     SunOutlined,
     MoonOutlined,
@@ -20,6 +20,7 @@ const themeIconMap = {
 
 export default function Template({ children }: { children: React.ReactNode }) {
     const currentTheme = useTheme();
+    const antdToken = theme.useToken().token;
 
     const themeMenu: MenuProps = {
         items: [
@@ -35,17 +36,15 @@ export default function Template({ children }: { children: React.ReactNode }) {
             {/* 顶栏 */}
             <Header
                 style={{
-                    padding: '0 1em',
-                    /* 用 token 代替手写色值 */
-                    background: 'var(--ant-color-bg-header)', // 暗/亮自动切换
-                    color: 'var(--ant-color-text)',
+                    background: antdToken.colorPrimaryBg,
+                    color: antdToken.colorText,
                 }}
             >
                 <Space style={{ width: '100%', justifyContent: 'space-between' }}>
                     <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
                         <Title
                             style={{
-                                color: 'var(--ant-color-primary)',
+                                color: antdToken.colorPrimary,
                                 margin: 0,
                             }}
                         >
@@ -57,7 +56,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
                         <Button
                             type="text"
                             icon={themeIconMap[currentTheme]}
-                            style={{ color: 'var(--ant-color-text)' }}
+                            style={{ color: antdToken.colorText }}
                         >
                             <DownOutlined />
                         </Button>
@@ -67,7 +66,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
             <Content style={{ padding: 16 }}>{children}</Content>
 
-            <Footer style={{ textAlign: 'center', color: 'var(--ant-color-text-secondary)' }}>
+            <Footer style={{ textAlign: 'center', color: antdToken.colorTextSecondary }}>
                 ©Uncle1Bo
             </Footer>
         </Layout>
