@@ -14,4 +14,13 @@ export default defineConfig({
         console.log(JSON.stringify(routes, null, 2))
       },
     })],
+  css: {
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true,
+        modifyVars: {
+        },
+      }
+    }
+  }
 });
