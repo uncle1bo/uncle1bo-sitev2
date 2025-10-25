@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/uncle1bo/uncle1bo-sitev2/compare/v1.1.0...v1.2.0) (2025-10-25)
+
+
+### Features
+
+* 新增导出当前主题功能 ([6e243f0](https://github.com/uncle1bo/uncle1bo-sitev2/commit/6e243f055536e466a9907b018acbfe24b30eedff))
+* antd tokens 预览页面 ([83f3b11](https://github.com/uncle1bo/uncle1bo-sitev2/commit/83f3b1119a5d2ed4154240ee66212a4dc0a71502))
+* api示例页 ([75bd779](https://github.com/uncle1bo/uncle1bo-sitev2/commit/75bd779f3a76aea1cfda23fc0d58ac0ac604b7f3))
+
+
+### Bug Fixes
+
+* 补充moudle.less的定义 ([7ba8190](https://github.com/uncle1bo/uncle1bo-sitev2/commit/7ba81903ddfa6cdd7d3a6b318ddc69223e76ffa8))
+* 补全定义 ([2cd2a1d](https://github.com/uncle1bo/uncle1bo-sitev2/commit/2cd2a1dd2aae99bedc7e74a39fe5d2117504b4f8))
+* 导出css变量 ([50c1e22](https://github.com/uncle1bo/uncle1bo-sitev2/commit/50c1e227c120fe4fe9dff2fe68318677efb024d4))
+* 调整主题管理器层级，修复按钮图标问题 ([950b901](https://github.com/uncle1bo/uncle1bo-sitev2/commit/950b90191cc58496d79c1eb51bfc89cee394b1d6))
+* 分离存储用户意图和生效主题 ([affa111](https://github.com/uncle1bo/uncle1bo-sitev2/commit/affa1115031e14dfdefe522ecd01edf2c213fd1f))
+* 删除冗余错误逻辑 ([7c36f6c](https://github.com/uncle1bo/uncle1bo-sitev2/commit/7c36f6c84ee8434045738bed995127dccb755598))
+* 修复存储失效问题 ([23ee5e0](https://github.com/uncle1bo/uncle1bo-sitev2/commit/23ee5e0ff1360e6f91363e8b7e86c31b53108a4a))
+* 修复类型错误，使用断言 ([aab3d77](https://github.com/uncle1bo/uncle1bo-sitev2/commit/aab3d779dd09257ef8bbffcd4287a511032fa450))
+* 修复样式冲突 ([bfe07a8](https://github.com/uncle1bo/uncle1bo-sitev2/commit/bfe07a868a86fcc6e85690d98c98cc61631bd2b4))
+
 ## 1.1.0 (2025-10-19)
 
 
