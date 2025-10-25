@@ -9,3 +9,8 @@ declare module '~react-pages' {
   const routes: CustomRouteObject[];
   export default routes;
 }
+declare module '*.module.less' {
+  import { ClassNames } from 'typescript-plugin-css-modules';
+  const classes: ClassNames;
+  export default classes;
+}
