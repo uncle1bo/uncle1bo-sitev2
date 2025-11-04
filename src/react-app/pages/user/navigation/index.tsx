@@ -1,15 +1,14 @@
 import { JSX, useState } from "react";
 import UserDashBoard from "../../../components/UserDashBoard";
 import Table, { ColumnsType } from "antd/es/table";
-import { Button, Collapse, Input, Space, Tag } from "antd";
-import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { Button, Collapse, Input, Space, Tag, theme } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 
 type NavigationSettingTypeOfRows = {
     expanded: boolean,
-    editing: boolean,
     inputing: boolean,
-    delating: boolean,
     inputVal: string,
+    deletingAlias: string | null;
 };
 type NavigationSettingType = {
     state: NavigationSettingTypeOfRows,
@@ -21,10 +20,9 @@ type NavigationSettingType = {
 
 const creatInitialRowState = (): NavigationSettingTypeOfRows => ({
     expanded: false,
-    editing: false,
     inputing: false,
-    delating: false,
     inputVal: "",
+    deletingAlias: null,
 });
 const mock: Array<NavigationSettingType> = [
     {
@@ -37,6 +35,7 @@ const mock: Array<NavigationSettingType> = [
 ];
 
 export default function NavigationSetting(): JSX.Element {
+    const antdToken = theme.useToken().token;
     type NavigationDataType = {
         list: NavigationSettingType[],
         map: Map<NavigationSettingType["key"], NavigationSettingType>
@@ -103,7 +102,7 @@ export default function NavigationSetting(): JSX.Element {
                 console.error(`function handleCollapseChange 未找到数据中索引为 ${key} 的数据，跳过`);
                 return prev;
             }
-            const working = item.state.delating || item.state.editing || item.state.inputing;
+            const working = item.state.inputing;
             return updateNavigationDataByKey(prev, key, {
                 state: { expanded: working ? true : !item.state.expanded },
             }) ?? prev;
@@ -128,7 +127,55 @@ export default function NavigationSetting(): JSX.Element {
                             <Space direction="vertical">
                                 {/* 已存在的别名 */}
                                 {record.candidates.map((c) => (
-                                    <Tag key={c}>{c}</Tag>
+                                    <Space key={c} size={4}>
+                                        <Tag
+                                            closable
+                                            onClose={(e) => {
+                                                e.preventDefault(); // ① 阻止 AntD 默认移除
+                                                setData((prev) =>
+                                                    updateNavigationDataByKey(prev, record.key, {
+                                                        state: { deletingAlias: c },
+                                                    }) ?? prev
+                                                );
+                                            }}
+                                        >
+                                            {c}
+                                        </Tag>
+                                        {/* 正在删除这条别名时，出现确认/取消按钮 */}
+                                        {record.state.deletingAlias === c && (
+                                            <Space size={4}>
+                                                <Button
+                                                    size="small"
+                                                    type="primary"
+                                                    style={{
+                                                        backgroundColor: antdToken.colorError,
+                                                    }}
+                                                    onClick={() =>
+                                                        setData((prev) =>
+                                                            updateNavigationDataByKey(prev, record.key, {
+                                                                candidates: record.candidates.filter((a) => a !== c),
+                                                                state: { deletingAlias: null },
+                                                            }) ?? prev
+                                                        )
+                                                    }
+                                                >
+                                                    删除
+                                                </Button>
+                                                <Button
+                                                    size="small"
+                                                    onClick={() =>
+                                                        setData((prev) =>
+                                                            updateNavigationDataByKey(prev, record.key, {
+                                                                state: { deletingAlias: null },
+                                                            }) ?? prev
+                                                        )
+                                                    }
+                                                >
+                                                    取消
+                                                </Button>
+                                            </Space>
+                                        )}
+                                    </Space>
                                 ))}
                                 {/* 如果正在给这行加别名，出现输入框 */}
                                 {record.state.inputing === true && (
@@ -194,7 +241,7 @@ export default function NavigationSetting(): JSX.Element {
                     >
                         {record.state.expanded ? '收起' : '展开'}
                     </Button>
-                </Space>
+                </Space >
             ),
         },
         {//控件
@@ -203,7 +250,6 @@ export default function NavigationSetting(): JSX.Element {
             width: 160,
             render: (_, record) => (
                 <Space>
-                    <Button size="small" type="text" icon={<EditOutlined />} />
                     <Button
                         size="small"
                         type="text"
@@ -220,7 +266,6 @@ export default function NavigationSetting(): JSX.Element {
                             );//开启输入，清空输入
                         }}
                     />
-                    <Button size="small" type="text" danger icon={<DeleteOutlined />} />
                 </Space>
             ),
         },
