@@ -123,7 +123,7 @@ export default function TagsSetting(): JSX.Element {
                         size="small"
                         activeKey={record.state.expanded ? [record.key] : []}
                     >
-                        <Collapse.Panel header={`${record.candidates.length} 个别名`} key={record.key} data-panel-key={record.key}>
+                        <Collapse.Panel header={`${record.candidates.length} 个标签`} key={record.key} data-panel-key={record.key}>
                             <Space direction="vertical">
                                 {/* 已存在的标签 */}
                                 {record.candidates.map((c) => (
