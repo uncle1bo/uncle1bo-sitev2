@@ -3,7 +3,7 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const userDashBoardPanes = [//0号为默认跳转页
-    { key: 'navigation', label: '导航栏设置' },
+    { key: 'tags', label: '标签设置' },
 ];
 
 export default function UserDashBoard({ children }: { children: React.ReactNode }) {
