@@ -27,7 +27,7 @@ const creatInitialRowState = (): TagsSettingTypeOfRows => ({
 const mock: Array<TagsSettingType> = [
     {
         state: creatInitialRowState(),
-        key: `${Date.now()}-${Math.random()}`,
+        key: `${Math.random()}-${Math.random()}`,
         origin: '文章ID',
         cn: '文章标题',
         candidates: ['文学','杂谈'],
