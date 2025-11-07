@@ -4,61 +4,61 @@ import Table, { ColumnsType } from "antd/es/table";
 import { Button, Collapse, Input, Space, Tag, theme } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
-type NavigationSettingTypeOfRows = {
+type TagsSettingTypeOfRows = {
     expanded: boolean,
     inputing: boolean,
     inputVal: string,
     deletingAlias: string | null;
 };
-type NavigationSettingType = {
-    state: NavigationSettingTypeOfRows,
+type TagsSettingType = {
+    state: TagsSettingTypeOfRows,
     key: string,
     origin: string,
     cn: string,
     candidates: Array<string>,
 };
 
-const creatInitialRowState = (): NavigationSettingTypeOfRows => ({
+const creatInitialRowState = (): TagsSettingTypeOfRows => ({
     expanded: false,
     inputing: false,
     inputVal: "",
     deletingAlias: null,
 });
-const mock: Array<NavigationSettingType> = [
+const mock: Array<TagsSettingType> = [
     {
         state: creatInitialRowState(),
         key: `${Date.now()}-${Math.random()}`,
-        origin: '/user/navigation',
-        cn: '导航栏设置',
-        candidates: ['/nav', '/navi', '/navigation'],
+        origin: '文章ID',
+        cn: '文章标题',
+        candidates: ['文学','杂谈'],
     },
 ];
 
-export default function NavigationSetting(): JSX.Element {
+export default function TagsSetting(): JSX.Element {
     const antdToken = theme.useToken().token;
-    type NavigationDataType = {
-        list: NavigationSettingType[],
-        map: Map<NavigationSettingType["key"], NavigationSettingType>
+    type TagsDataType = {
+        list: TagsSettingType[],
+        map: Map<TagsSettingType["key"], TagsSettingType>
     };
-    const [data, setData] = useState<NavigationDataType>({
+    const [data, setData] = useState<TagsDataType>({
         list: mock, map: new Map(mock.map((r) => [r.key, r]))
     });
-    type NavigationSettingPatchType = {
-        state?: Partial<NavigationSettingTypeOfRows>,
+    type TagsSettingPatchType = {
+        state?: Partial<TagsSettingTypeOfRows>,
         key?: string,
         origin?: string,
         cn?: string,
         candidates?: Array<string>,
     }
-    const updateNavigationDataByKey = function (
-        prev: NavigationDataType,
-        key: NavigationSettingType["key"],
-        patch: NavigationSettingPatchType
-    ): NavigationDataType | undefined {
-        const isNavigationItemEqual = (a: NavigationSettingType, b: NavigationSettingType): boolean => {
+    const updateTagsDataByKey = function (
+        prev: TagsDataType,
+        key: TagsSettingType["key"],
+        patch: TagsSettingPatchType
+    ): TagsDataType | undefined {
+        const isNavigationItemEqual = (a: TagsSettingType, b: TagsSettingType): boolean => {
             const topLevelKeys = Object.keys(a).filter(key => key !== 'state');
             for (const key of topLevelKeys) {
-                if (!Object.is(a[key as keyof NavigationSettingType], b[key as keyof NavigationSettingType])) {
+                if (!Object.is(a[key as keyof TagsSettingType], b[key as keyof TagsSettingType])) {
                     return false;
                 }
             }
@@ -90,9 +90,9 @@ export default function NavigationSetting(): JSX.Element {
             map: newMap
         };
     };
-    const ensureExpanded = (key: NavigationSettingType["key"]) => {
+    const ensureExpanded = (key: TagsSettingType["key"]) => {
         setData((prev) =>
-            updateNavigationDataByKey(prev, key, { state: { expanded: true } }) ?? prev
+            updateTagsDataByKey(prev, key, { state: { expanded: true } }) ?? prev
         );
     };
     const handleCollapseChange = (key: string) => {
@@ -103,18 +103,18 @@ export default function NavigationSetting(): JSX.Element {
                 return prev;
             }
             const working = item.state.inputing;
-            return updateNavigationDataByKey(prev, key, {
+            return updateTagsDataByKey(prev, key, {
                 state: { expanded: working ? true : !item.state.expanded },
             }) ?? prev;
         });
     };
 
-    const columns: ColumnsType<NavigationSettingType> = [
+    const columns: ColumnsType<TagsSettingType> = [
         { title: '序号', render: (_, __, i) => i + 1, width: 60, align: 'center' },
-        { title: '原始地址', dataIndex: 'origin', align: 'center' },
-        { title: '中文名', dataIndex: 'cn', align: 'center' },
-        {//备选地址
-            title: '备选地址',
+        { title: '文章ID', dataIndex: 'origin', align: 'center' },
+        { title: '标题', dataIndex: 'cn', align: 'center' },
+        {//标签
+            title: '标签',
             align: 'center',
             render: (_, record) => (
                 <Space>
@@ -125,7 +125,7 @@ export default function NavigationSetting(): JSX.Element {
                     >
                         <Collapse.Panel header={`${record.candidates.length} 个别名`} key={record.key} data-panel-key={record.key}>
                             <Space direction="vertical">
-                                {/* 已存在的别名 */}
+                                {/* 已存在的标签 */}
                                 {record.candidates.map((c) => (
                                     <Space key={c} size={4}>
                                         <Tag
@@ -133,7 +133,7 @@ export default function NavigationSetting(): JSX.Element {
                                             onClose={(e) => {
                                                 e.preventDefault(); // ① 阻止 AntD 默认移除
                                                 setData((prev) =>
-                                                    updateNavigationDataByKey(prev, record.key, {
+                                                    updateTagsDataByKey(prev, record.key, {
                                                         state: { deletingAlias: c },
                                                     }) ?? prev
                                                 );
@@ -152,7 +152,7 @@ export default function NavigationSetting(): JSX.Element {
                                                     }}
                                                     onClick={() =>
                                                         setData((prev) =>
-                                                            updateNavigationDataByKey(prev, record.key, {
+                                                            updateTagsDataByKey(prev, record.key, {
                                                                 candidates: record.candidates.filter((a) => a !== c),
                                                                 state: { deletingAlias: null },
                                                             }) ?? prev
@@ -165,7 +165,7 @@ export default function NavigationSetting(): JSX.Element {
                                                     size="small"
                                                     onClick={() =>
                                                         setData((prev) =>
-                                                            updateNavigationDataByKey(prev, record.key, {
+                                                            updateTagsDataByKey(prev, record.key, {
                                                                 state: { deletingAlias: null },
                                                             }) ?? prev
                                                         )
@@ -177,14 +177,14 @@ export default function NavigationSetting(): JSX.Element {
                                         )}
                                     </Space>
                                 ))}
-                                {/* 如果正在给这行加别名，出现输入框 */}
+                                {/* 如果正在给这行加标签，出现输入框 */}
                                 {record.state.inputing === true && (
                                     <Space>
                                         <Input
                                             size="small"
                                             value={record.state.inputVal}
                                             onChange={(e) => setData((prev) =>
-                                                updateNavigationDataByKey(prev, record.key, {
+                                                updateTagsDataByKey(prev, record.key, {
                                                     state: {
                                                         inputing: true,
                                                         inputVal: e.target.value,
@@ -194,7 +194,7 @@ export default function NavigationSetting(): JSX.Element {
                                             onPressEnter={() => {
                                                 if (!record.state.inputVal.trim()) return;
                                                 setData((prev) =>
-                                                    updateNavigationDataByKey(prev, record.key, {
+                                                    updateTagsDataByKey(prev, record.key, {
                                                         candidates: [...record.candidates, record.state.inputVal.trim()],
                                                         state: {
                                                             inputing: false,
@@ -209,7 +209,7 @@ export default function NavigationSetting(): JSX.Element {
                                             onClick={() => {
                                                 if (!record.state.inputVal.trim()) return;
                                                 setData((prev) =>
-                                                    updateNavigationDataByKey(prev, record.key, {
+                                                    updateTagsDataByKey(prev, record.key, {
                                                         candidates: [...record.candidates, record.state.inputVal.trim()],
                                                         state: {
                                                             inputing: false,
@@ -222,7 +222,7 @@ export default function NavigationSetting(): JSX.Element {
                                         </Button>
                                         <Button size="small" onClick={() => {
                                             setData((prev) =>
-                                                updateNavigationDataByKey(prev, record.key, {
+                                                updateTagsDataByKey(prev, record.key, {
                                                     state: {
                                                         inputing: false,
                                                     }
@@ -257,7 +257,7 @@ export default function NavigationSetting(): JSX.Element {
                         onClick={() => {
                             ensureExpanded(record.key);
                             setData((prev) =>
-                                updateNavigationDataByKey(prev, record.key, {
+                                updateTagsDataByKey(prev, record.key, {
                                     state: {
                                         inputing: true,
                                         inputVal: "",
