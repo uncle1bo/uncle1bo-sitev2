@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/uncle1bo/uncle1bo-sitev2/compare/v1.2.0...v1.3.0) (2025-11-08)
+
+
+### Features
+
+* 导航栏最小原型 ([af36936](https://github.com/uncle1bo/uncle1bo-sitev2/commit/af36936a9ac4dc87758b0cc76544b5dc24925b17))
+* 数据看板最小原型 ([2f1c61a](https://github.com/uncle1bo/uncle1bo-sitev2/commit/2f1c61a318651b3a414fd43ae1dbb00b2a3ee668))
+* 添加删除功能，去除冗余状态信息 ([d9e6133](https://github.com/uncle1bo/uncle1bo-sitev2/commit/d9e61331fc99d871349bbecd40d2490647269874))
+* 完成添加功能 ([430c593](https://github.com/uncle1bo/uncle1bo-sitev2/commit/430c5933071eb76c265aeb64e7dc2c98e84d9f3f))
+* 完善导航设置功能 ([1cafcf6](https://github.com/uncle1bo/uncle1bo-sitev2/commit/1cafcf66638fbd5ebc631e3ad83540654021dfaf))
+
+
+### Bug Fixes
+
+* 使用了更难重复的ID ([609c701](https://github.com/uncle1bo/uncle1bo-sitev2/commit/609c70121f1f88cc0ddcf28b6c1b514bdb4411e4))
+* 修复过时的标题 ([baec661](https://github.com/uncle1bo/uncle1bo-sitev2/commit/baec661e829b4455939a3902f386d905e5c486ff))
+* 修改不正确的索引 ([f3bc82a](https://github.com/uncle1bo/uncle1bo-sitev2/commit/f3bc82a3508c00002b5cc962d53d4f917bbd8b33))
+
 ## [1.2.0](https://github.com/uncle1bo/uncle1bo-sitev2/compare/v1.1.0...v1.2.0) (2025-10-25)
 
 
